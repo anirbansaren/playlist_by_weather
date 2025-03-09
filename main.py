@@ -1,4 +1,3 @@
-import datetime as dt
 import requests
 
 # 3 lists of 4 playlists for each weather type
@@ -7,19 +6,27 @@ sunny_playlists = ["https://open.spotify.com/playlist/1lKj46rZMLXZ1uU0rhSI1Z?si=
 cold_playlists = ["https://open.spotify.com/playlist/37i9dQZF1DX5IDTimEWoTd?si=tPir2k1PTqeCP3sNlrnEbg","https://open.spotify.com/playlist/37i9dQZF1DXaImRpG7HXqp?si=BtXpO9UsRvKwRttyPQqH9w","https://open.spotify.com/playlist/37i9dQZF1DWSwxyU5zGZYe?si=_x6t7infQFaRKTIou16tOA","https://open.spotify.com/playlist/37i9dQZF1DWT3gM3xdPT0c?si=F4hddmXUTliAFLu5qNJZEg"]
 
 # Get weather data
-def get_weather_data():
-    base_url = "http://api.openweathermap.org/data/2.5/weather?id=" #Base url for the api call
+def get_weather_data(city):
+    base_url = "http://api.openweathermap.org/data/2.5/weather?q=" #Base url for the api call
     api_key = open("api_key",'r').read() #The API key from openweathermap.org. It is advised to get your own API key from openweathermap.org for running this program on your device.
     # Also if you want to run this program, you'll need to replace the path to the api_key with your api key's file path
 
-    city_code = "1275004" # City Code For Kolkata, India 
+    url = base_url + city + "&appid=" + api_key # Concatenate the url components to a url for api call
 
-    url = base_url + city_code + "&appid=" + api_key # Concatenate the url components to a url for api call
+    response = requests.get(url).json() # This stores the api call response in the response variable
 
-    print(url)
-    #response = requests.get(url).json()
+    weather_main = response['weather'][0]['main']
 
-    #print(response)
+    print(response)
+    return weather_main
+
+#def playlist_output(get_weather_data):
+def welcome():
+    print("Welcome to The Playlist By Weather application!")
+    city = input("Enter your city name: ")
+    weather = get_weather_data(city)
+    print(f"The weather is: {weather}")
+    #print(f"The weather in {city} is {weather}.\nYour ideal playlist based on the {weather} weather in {city} is:\n")
 
 if __name__=="__main__":
-    get_weather_data()
+    welcome()
