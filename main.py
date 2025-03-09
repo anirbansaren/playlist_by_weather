@@ -25,7 +25,6 @@ def get_weather_data(city):
 
     return weather_main #returning the weather category
 
-#def playlist_output(get_weather_data):
 def welcome():
     """
     This is the function where all the other functions are managed and coordinated to-
@@ -58,8 +57,8 @@ def choose_playlist(weather):
     elif weather in cold_weathers:
         return random.choice(cold_playlists) # randomly chooses from the cold playlist link list
     else:
-        return random.choice(sunny_playlists) # randomly chooses from the sunny playlist link list because it doesn't fall in any of the pre-defined weathers
+        return random.choice(sunny_playlists) # randomly chooses from the sunny playlist link list because it doesn't fall into any of the pre-defined 3 weathers
 
 
-if __name__=="__main__":
+if __name__=="__main__": # Execution of the code starts from here.
     welcome()
